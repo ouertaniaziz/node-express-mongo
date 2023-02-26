@@ -1,0 +1,12 @@
+{% block content extends layout.twig %}
+<h1> {{title}} </h1>
+<form action="/create" method="post">
+<label for="comment">add a comment </label>
+<input type="text" name="comment" placeholder="Add a comment"/>
+<input type="submit" value="save"/>
+
+</form>
+{% for comment in comments %}
+<h3> {{comment.title}}</h3>
+{% endfor %}
+{% endblock %}
