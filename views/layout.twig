@@ -3,8 +3,82 @@
   <head>
     <title>{{ title }}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./config.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
     {% block body %}{% endblock %}
+    <div id="typing-notification"></div>
+    <script>
+      const socket = io.connect("ws://localhost:3000");
+
+      function deleteEvent(eventId) {
+        const deleteUrl = "/event/delete/" + eventId;
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(deleteUrl, options)
+          .then((response) => {
+            if (response.ok) {
+              window.location.href = "/event";
+            } else {
+              // Handle error case
+            }
+          })
+          .catch((error) => {
+            // Handle fetch error
+          });
+      }
+ function updateEvent(eventId) {
+        const deleteUrl = "/event/delete/" + eventId;
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        fetch(deleteUrl, options)
+          .then((response) => {
+            if (response.ok) {
+              window.location.href = "/event";
+            } else {
+              // Handle error case
+            }
+          })
+          .catch((error) => {
+            // Handle fetch error
+          });
+      }
+      socket.on("msg", (data) => {
+        const p = document.createElement("p");
+        p.innerText = data;
+        document.body.append(p);
+      });
+
+       socket.on("delete", (data) => {
+        const notificationElement = document.createElement("div");
+        notificationElement.innerText = data;
+        notificationElement.classList.add("notification");
+        document.body.append(notificationElement);
+      });
+    </script>
+    <style>
+      .notification {
+       
+        background-color: #f44336;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    </style>
   </body>
 </html>

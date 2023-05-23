@@ -1,12 +1,15 @@
-{% block content extends layout.twig %}
-<h1> {{title}} </h1>
-<form action="/create" method="post">
-<label for="comment">add a comment </label>
-<input type="text" name="comment" placeholder="Add a comment"/>
-<input type="submit" value="save"/>
+{% extends 'layout.twig' %}
 
+{% block body %}
+  <h1>{{title}}</h1>
+  <p>Welcome to {{title}}</p>
+  <h1> {{title}} </h1>
+ |<form action="/event/add" method="post">
+<label for="event">add a event </label>
+<input type="text" name="title" placeholder="Add a title"/>
+<input type="text" name="Description" placeholder="Add a title"/>
+<input type="number" name="NbParticipant" placeholder="Add a title"/>
+<input type="submit" value="save"/>
+<a href="/event">back to home</a>
 </form>
-{% for comment in comments %}
-<h3> {{comment.title}}</h3>
-{% endfor %}
 {% endblock %}

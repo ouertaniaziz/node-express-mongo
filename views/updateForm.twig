@@ -1,0 +1,15 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <h1>{{ title }}</h1>
+  <p>Welcome to {{ title }}</p>
+  <h1>Update Event</h1>
+  <form action="/event/update/{{ event._id }}" method="post">
+    <label for="event">Update the event</label>
+    <input type="text" name="title" placeholder="Add a title" value="{{ event.title }}"/>
+    <input type="text" name="Description" placeholder="Add a description" value="{{ event.Description }}"/>
+    <input type="number" name="NbParticipant" placeholder="Add the number of participants" value="{{ event.NbParticipant }}"/>
+    <input type="submit" value="Save"/>
+    <a href="/event">Back to Home</a>
+  </form>
+{% endblock %}
